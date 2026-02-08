@@ -3,616 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我想对你说的话</title>
+    <title>一份特别的邀请</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Georgia', 'Microsoft YaHei', serif;
-            background: #0a0e27;
-            min-height: 100vh;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #fff5f7 0%, #fce4ec 100%);
+            font-family: 'Microsoft YaHei', sans-serif;
             overflow: hidden;
-            position: relative;
-        }
-
-        /* 背景星空和粒子效果 */
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at 50% 0%, #1a2a4a 0%, #0a0e27 100%);
-            z-index: 1;
-        }
-
-        .stars {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        /* 漂浮粒子 */
-        .particle {
-            position: fixed;
-            pointer-events: none;
-            animation: particleFloat 20s infinite;
-        }
-
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100px);
-                opacity: 0;
-            }
-        }
-
-        .main-container {
-            position: relative;
-            z-index: 10;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .wrapper {
-            perspective: 1000px;
-            width: 100%;
-            max-width: 800px;
-        }
-
-        .card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 30px;
-            padding: 80px 60px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), 
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            animation: cardSlideIn 1s ease-out;
-        }
-
-        @keyframes cardSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(50px) rotateX(20deg);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) rotateX(0deg);
-            }
-        }
-
-        .heart-container {
-            position: relative;
-            height: 120px;
-            margin-bottom: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .heart-main {
-            font-size: 80px;
-            animation: heartPulse 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
-            filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.6));
-        }
-
-        @keyframes heartPulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            25% {
-                transform: scale(1.2);
-            }
-            50% {
-                transform: scale(1);
-            }
-        }
-
-        .title {
-            text-align: center;
-            margin-bottom: 30px;
-            animation: fadeInDown 1s ease-out 0.2s both;
-        }
-
-        .title h1 {
-            font-size: 48px;
-            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 30px rgba(255, 105, 180, 0.2);
-        }
-
-        .subtitle {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.5);
-            font-style: italic;
-            letter-spacing: 3px;
+            flex-direction: column;
+            user-select: none;
         }
 
         .content {
             text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInUp 1s ease-out 0.4s both;
+            z-index: 10;
         }
 
-        .content-section {
-            margin-bottom: 35px;
-            padding: 0 20px;
-        }
+        h1 { color: #d81b60; font-size: 2.8rem; margin-bottom: 20px; }
+        p { color: #880e4f; font-size: 1.5rem; }
 
-        .content-section p {
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 18px;
-            line-height: 2;
-            margin-bottom: 15px;
-            text-indent: 2em;
-            letter-spacing: 1px;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .content-section:nth-child(1) p { animation-delay: 0.6s; }
-        .content-section:nth-child(2) p { animation-delay: 0.8s; }
-        .content-section:nth-child(3) p { animation-delay: 1s; }
-        .content-section:nth-child(4) p { animation-delay: 1.2s; }
-
-        .highlight {
-            color: #ff69b4;
-            font-weight: bold;
-            position: relative;
-            display: inline-block;
-        }
-
-        .highlight::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ff69b4, transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% {
-                opacity: 0.5;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-
-        .divider {
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ff69b4, transparent);
-            margin: 0 auto 30px;
-            animation: fadeIn 1s ease-out 0.5s both;
-        }
-
-        .buttons-container {
+        .btns {
+            margin-top: 40px;
             display: flex;
-            gap: 30px;
             justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 1s ease-out 1.4s both;
+            gap: 50px;
         }
 
-        .btn {
-            padding: 16px 50px;
-            font-size: 16px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-            min-width: 180px;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .yes-btn {
-            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%);
-            color: white;
-            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .yes-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.6);
-        }
-
-        .yes-btn:active {
-            transform: translateY(-1px);
-        }
-
-        .no-btn {
-            background: transparent;
-            color: rgba(255, 255, 255, 0.7);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .no-btn:hover {
-            color: rgba(255, 255, 255, 0.9);
-            border-color: rgba(255, 255, 255, 0.6);
-            transform: translateX(15px);
-        }
-
-        /* 成功界面 */
-        .success-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        .success-overlay.show {
-            display: flex;
-        }
-
-        .success-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.2);
+        button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
             border-radius: 30px;
-            padding: 60px 50px;
-            text-align: center;
-            animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            max-width: 500px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            outline: none;
         }
 
-        @keyframes popIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.3) rotateZ(-10deg);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) rotateZ(0deg);
-            }
+        #yes-btn {
+            background-color: #ff4081;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
         }
 
-        .success-emoji {
-            font-size: 120px;
-            margin-bottom: 20px;
-            animation: bounce 0.8s ease-out infinite;
+        #no-btn {
+            background-color: #f48fb1;
+            color: white;
+            position: relative;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        /* 鼠标点击产生的爱心样式 */
+        .click-heart {
+            position: fixed;
+            pointer-events: none;
+            color: #ff4081;
+            font-size: 20px;
+            animation: rise 1s ease-out forwards;
+            z-index: 999;
         }
 
-        .success-card h2 {
-            font-size: 42px;
-            color: #ff69b4;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-
-        .success-card p {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.8;
-            margin-bottom: 30px;
-        }
-
-        .success-time {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.5);
-            font-style: italic;
-        }
-
-        /* 动画关键帧 */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .card {
-                padding: 60px 40px;
-            }
-
-            .title h1 {
-                font-size: 36px;
-            }
-
-            .content-section p {
-                font-size: 16px;
-                line-height: 1.8;
-            }
-
-            .buttons-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .btn {
-                min-width: 100%;
-            }
+        @keyframes rise {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-100px) scale(1.5); }
         }
     </style>
 </head>
 <body>
-    <!-- 背景 -->
-    <div class="background" id="background"></div>
 
-    <!-- 主容器 -->
-    <div class="main-container">
-        <div class="wrapper">
-            <div class="card">
-                <!-- 心形容器 -->
-                <div class="heart-container">
-                    <div class="heart-main">❤️</div>
-                </div>
-
-                <!-- 标题 -->
-                <div class="title">
-                    <h1>我想对你说的话</h1>
-                    <div class="divider"></div>
-                    <p class="subtitle">— 用尽一生的深情 —</p>
-                </div>
-
-                <!-- 内容 -->
-                <div class="content">
-                    <div class="content-section">
-                        <p>从第一次遇见你到如今，我才明白什么叫做一见钟情，什么叫做命中注定。你就像一束光，照亮了我原本平凡而孤寂的生活，让我相信这个世界上真的存在奇迹。</p>
-                    </div>
-
-                    <div class="content-section">
-                        <p>你的笑容如同春日的阳光，温暖而柔和；你的眼神如同深潭，深邃而迷人；你说的每一句话都如同音乐，在我心里回荡。与你相处的每一刻，我都感到一种从未有过的安心和幸福。</p>
-                    </div>
-
-                    <div class="content-section">
-                        <p>我爱你，不仅仅因为你的美丽，更因为你那颗温柔而坚强的心。爱你，想看遍你眼中的每一丝光芒；爱你，想陪你走过人生的每一步；爱你，想把所有的温柔都给你。</p>
-                    </div>
-
-                    <div class="content-section">
-                        <p><span class="highlight">我想和你一起看遍世间春夏秋冬，一起走过风风雨雨，一起见证彼此的成长。</span>让我们用一生去诠释什么叫做真爱，什么叫做陪伴。</p>
-                    </div>
-
-                    <div class="content-section">
-                        <p>所以，亲爱的你，你愿意让我成为你生命中最重要的人吗？你愿意和我携手走向美好的明天吗？</p>
-                    </div>
-                </div>
-
-                <!-- 按钮 -->
-                <div class="buttons-container">
-                    <button class="btn yes-btn" onclick="handleYes()">我愿意 💕</button>
-                    <button class="btn no-btn" onclick="handleNo()">让我再想想</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 成功界面 -->
-    <div class="success-overlay" id="successOverlay">
-        <div class="success-card">
-            <div class="success-emoji">🎉</div>
-            <h2>我很幸运</h2>
-            <p>感谢你选择和我一起走下去，你的答应让我成为了这个世界上最幸福的人。</p>
-            <p style="margin-top: 20px; font-style: italic;">
-                我会用尽一生去珍惜这份爱，用心去呵护这段感情。
-            </p>
-            <p class="success-time" style="margin-top: 30px;" id="successTime"></p>
+    <div class="content">
+        <h1 id="question">做我女朋友好吗？❤️</h1>
+        <p>我已经观察你很久了，我觉得我们超合拍！</p>
+        <div class="btns">
+            <button id="yes-btn">好呀</button>
+            <button id="no-btn">不行</button>
         </div>
     </div>
 
     <script>
-        // 生成星空
-        function createStars() {
-            const background = document.getElementById('background');
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'stars';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                background.appendChild(star);
-            }
-        }
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        const question = document.getElementById('question');
 
-        // 生成漂浮粒子
-        function createParticles() {
-            const background = document.getElementById('background');
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.innerHTML = '✨';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.fontSize = (Math.random() * 10 + 10) + 'px';
-                background.appendChild(particle);
-            }
-        }
+        // 1. 按钮逃跑逻辑
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        });
 
-        // 点击"我愿意"
-        function handleYes() {
-            document.getElementById('successOverlay').classList.add('show');
-            document.querySelector('.buttons-container').style.opacity = '0.5';
-            document.querySelector('.buttons-container').style.pointerEvents = 'none';
+        // 2. 点击肯定的逻辑
+        yesBtn.addEventListener('click', () => {
+            question.innerHTML = "我就知道你会答应的！😘";
+            document.querySelector('.content p').innerHTML = "那我们现在就开始约会吧！";
+            noBtn.style.display = 'none';
+            yesBtn.innerHTML = "太棒啦！";
             
-            createConfetti();
-            createMassiveHearts();
-            
-            const now = new Date();
-            const timeStr = now.toLocaleString('zh-CN');
-            document.getElementById('successTime').textContent = '你的"我愿意"定格在了 ' + timeStr;
+            // 撒花效果
+            setInterval(createHeart, 100);
+        });
+
+        // 3. 点击屏幕产生爱心
+        document.addEventListener('click', (e) => {
+            createHeartAt(e.pageX, e.pageY);
+        });
+
+        function createHeartAt(x, y) {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.className = 'click-heart';
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 1000);
         }
 
-        // 点击"让我再想想"
-        function handleNo() {
-            const btn = event.target;
-            const randomX = (Math.random() - 0.5) * 300;
-            const randomY = (Math.random() - 0.5) * 300;
-            btn.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${Math.random() * 360}deg)`;
+        function createHeart() {
+            const x = Math.random() * window.innerWidth;
+            const y = window.innerHeight + 10;
+            createHeartAt(x, y);
         }
-
-        // 创建彩纸
-        function createConfetti() {
-            const colors = ['#ff69b4', '#ff1493', '#ffb6c1', '#ffc0cb', '#ff69b4'];
-            for (let i = 0; i < 80; i++) {
-                const confetti = document.createElement('div');
-                confetti.style.position = 'fixed';
-                confetti.style.width = (Math.random() * 10 + 5) + 'px';
-                confetti.style.height = (Math.random() * 10 + 5) + 'px';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.top = '-10px';
-                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-                confetti.style.pointerEvents = 'none';
-                confetti.style.zIndex = '101';
-                document.body.appendChild(confetti);
-                
-                const duration = 3 + Math.random() * 2;
-                const xMove = (Math.random() - 0.5) * 200;
-                const rotation = Math.random() * 720;
-                
-                confetti.animate([
-                    { 
-                        transform: 'translateY(0) translateX(0) rotate(0deg)',
-                        opacity: 1
-                    },
-                    { 
-                        transform: `translateY(100vh) translateX(${xMove}px) rotate(${rotation}deg)`,
-                        opacity: 0
-                    }
-                ], {
-                    duration: duration * 1000,
-                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-                });
-                
-                setTimeout(() => confetti.remove(), duration * 1000);
-            }
-        }
-
-        // 大量浮动爱心
-        function createMassiveHearts() {
-            const hearts = ['❤️', '💕', '💖', '💗', '💝', '💞'];
-            for (let i = 0; i < 50; i++) {
-                setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.style.position = 'fixed';
-                    heart.style.fontSize = (Math.random() * 40 + 20) + 'px';
-                    heart.style.left = Math.random() * 100 + '%';
-                    heart.style.top = '100%';
-                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                    heart.style.pointerEvents = 'none';
-                    heart.style.zIndex = '101';
-                    document.body.appendChild(heart);
-                    
-                    const duration = 4 + Math.random() * 2;
-                    const xMove = (Math.random() - 0.5) * 300;
-                    
-                    heart.animate([
-                        {
-                            transform: 'translateY(0) translateX(0) rotate(0deg)',
-                            opacity: 1
-                        },
-                        {
-                            transform: `translateY(-150vh) translateX(${xMove}px) rotate(${Math.random() * 360}deg)`,
-                            opacity: 0
-                        }
-                    ], {
-                        duration: duration * 1000,
-                        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-                    });
-                    
-                    setTimeout(() => heart.remove(), duration * 1000);
-                }, i * 30);
-            }
-        }
-
-        // 初始化
-        createStars();
-        createParticles();
     </script>
 </body>
 </html>
-
+</html>
